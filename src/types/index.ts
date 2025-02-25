@@ -1,7 +1,8 @@
 export type Difficulty = "Easy" | "Medium" | "Hard";
 
 // Exercise-related types
-export interface Exercise {}
+export interface Exercise {
+}
 
 export interface TestCase {
   input: any;

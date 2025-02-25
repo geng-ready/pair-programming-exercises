@@ -1,11 +1,12 @@
 import React from "react";
 import { useExercises } from "../../contexts/ExerciseContext";
 import { formatDifficulty } from "../../utils/helpers";
+import { Exercise } from "../../types";
 import "./ExerciseItem.css";
 
-// FIXME Issue #1: Using 'any' type instead of properly typing the props
+// FIXME Issue #1: fix type for ExerciseItemProps
 interface ExerciseItemProps {
-  exercise: any;
+  exercise: Exercise;
 }
 
 const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise }) => {
