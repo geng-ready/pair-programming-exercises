@@ -1,15 +1,7 @@
-export type Difficulty = 'Easy' | 'Medium' | 'Hard';
+export type Difficulty = "Easy" | "Medium" | "Hard";
 
 // Exercise-related types
-export interface Exercise {
-  id: number;
-  title: string;
-  difficulty: Difficulty;
-  description: string;
-  tasks: string[];
-  starterCode: string;
-  testCases: TestCase[];
-}
+export interface Exercise {}
 
 export interface TestCase {
   input: any;

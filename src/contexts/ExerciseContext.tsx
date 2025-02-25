@@ -1,8 +1,14 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { fetchExercises } from '../utils/api';
-import { Exercise, ExerciseContextType } from '../types';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { fetchExercises } from "../utils/api";
+import { Exercise, ExerciseContextType } from "../types";
 
-// FIXME Issue #1: Creating the context Error
+// FIXME Issue #2: Creating the context Error
 const ExerciseContext = createContext<ExerciseContextType>();
 
 interface ExerciseProviderProps {
@@ -16,17 +22,20 @@ interface ExerciseProviderProps {
 export const useExercises = (): ExerciseContextType => {
   const context = useContext(ExerciseContext);
   if (context === undefined) {
-    throw new Error('useExercises must be used within an ExerciseProvider');
+    throw new Error("useExercises must be used within an ExerciseProvider");
   }
   return context;
 };
 
-export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({ children, value }) => {
+export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
+  children,
+  value,
+}) => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [view, setView] = useState<string>('list');
+  const [view, setView] = useState<string>("list");
 
   useEffect(() => {
     const loadExercises = async () => {
@@ -36,7 +45,7 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({ children, va
         setExercises(data);
         setLoading(false);
       } catch (err) {
-        setError('Failed to load exercises');
+        setError("Failed to load exercises");
         setLoading(false);
       }
     };
@@ -45,23 +54,23 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({ children, va
   }, []);
 
   const selectExercise = (exerciseId: number): void => {
-    const selected = exercises.find(ex => ex.id === exerciseId) || null;
+    const selected = exercises.find((ex) => ex.id === exerciseId) || null;
     setCurrentExercise(selected);
     if (value && value.setView) {
-      value.setView('detail');
+      value.setView("detail");
     } else {
-      setView('detail');
+      setView("detail");
     }
   };
 
   const contextValue: ExerciseContextType = {
-    exercises, 
-    currentExercise, 
-    loading, 
-    error, 
+    exercises,
+    currentExercise,
+    loading,
+    error,
     selectExercise,
     view: value?.view || view,
-    setView: value?.setView || setView
+    setView: value?.setView || setView,
   };
 
   return (
